@@ -27,6 +27,8 @@ public class JwtAuthFilter implements Filter {
 
         String path = req.getRequestURI();
 
+        System.out.println("PATH = " + path);
+        System.out.println("AUTH HEADER = " + authHeader);
         // Allow public APIs
         if (path.contains("/api/users/login") ||
                 path.contains("/api/users/register")) {

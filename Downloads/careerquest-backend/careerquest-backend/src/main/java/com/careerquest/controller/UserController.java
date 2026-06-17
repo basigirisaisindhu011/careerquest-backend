@@ -3,7 +3,7 @@ package com.careerquest.controller;
 import com.careerquest.dto.LoginRequest;
 import com.careerquest.dto.LoginResponse;
 import com.careerquest.dto.RegisterRequest;
-import com.careerquest.service.impl.UserService;
+import com.careerquest.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

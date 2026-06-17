@@ -1,9 +1,6 @@
-package com.careerquest.service.impl;
+package com.careerquest.service;
 
-import com.careerquest.dto.CareerRecommendationDto;
-import com.careerquest.dto.QuizQuestionsDto;
-import com.careerquest.dto.QuizResultDto;
-import com.careerquest.dto.QuizSubmissionDto;
+import com.careerquest.dto.*;
 
 import java.util.List;
 
@@ -16,4 +13,5 @@ public interface QuizQuestionService {
             QuizSubmissionDto submissionDto);
     List<QuizResultDto> getQuizHistory(
             String userEmail);
+    ParentDashboardDto getDashboard(String email);
 }

@@ -1,4 +1,4 @@
-package com.careerquest.service.impl;
+package com.careerquest.service;
 
 import com.careerquest.dto.CareerDto;
 

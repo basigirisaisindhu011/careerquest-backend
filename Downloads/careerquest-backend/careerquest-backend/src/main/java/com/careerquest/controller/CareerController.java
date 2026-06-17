@@ -2,7 +2,7 @@ package com.careerquest.controller;
 
 import com.careerquest.dto.CareerDto;
 
-import com.careerquest.service.impl.CareerService;
+import com.careerquest.service.CareerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

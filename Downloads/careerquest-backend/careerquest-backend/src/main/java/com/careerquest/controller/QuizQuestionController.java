@@ -1,11 +1,8 @@
 package com.careerquest.controller;
 
 
-import com.careerquest.dto.CareerRecommendationDto;
-import com.careerquest.dto.QuizQuestionsDto;
-import com.careerquest.dto.QuizResultDto;
-import com.careerquest.dto.QuizSubmissionDto;
-import com.careerquest.service.impl.QuizQuestionService;
+import com.careerquest.dto.*;
+import com.careerquest.service.QuizQuestionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,5 +40,13 @@ public class QuizQuestionController {
 
         return quizQuestionService
                 .getQuizHistory(email);
+    }
+
+    @GetMapping("/dashboard/{email}")
+    public ParentDashboardDto getDashboard(
+            @PathVariable String email) {
+
+        return quizQuestionService
+                .getDashboard(email);
     }
 }

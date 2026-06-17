@@ -1,19 +1,16 @@
-package com.careerquest.service.impl;
+package com.careerquest.service;
 
-import com.careerquest.dto.CareerRecommendationDto;
-import com.careerquest.dto.QuizResultDto;
-import com.careerquest.dto.QuizSubmissionDto;
+import com.careerquest.dto.*;
 import com.careerquest.entity.QuizResult;
 import com.careerquest.repository.QuizResultRepository;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
-import com.careerquest.dto.QuizQuestionsDto;
+
 import com.careerquest.entity.QuizQuestion;
 import com.careerquest.repository.QuizQuestionRepository;
 
-import com.careerquest.repository.QuizResultRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -142,5 +139,41 @@ public class QuizQuestionServiceImpl implements QuizQuestionService {
                                 .createdAt(result.getCreatedAt())
                                 .build())
                 .toList();
+    }
+    @Override
+    public ParentDashboardDto getDashboard(String email) {
+
+        List<QuizResult> results =
+                quizResultRepository.findByUserEmail(email);
+
+        if(results.isEmpty()) {
+            throw new RuntimeException("No quiz results found");
+        }
+
+        long totalQuizzes = results.size();
+
+        double averagePercentage =
+                results.stream()
+                        .mapToInt(QuizResult::getMatchPercentage)
+                        .average()
+                        .orElse(0);
+
+        String topCareer =
+                results.stream()
+                        .collect(Collectors.groupingBy(
+                                QuizResult::getTopCareer,
+                                Collectors.counting()))
+                        .entrySet()
+                        .stream()
+                        .max(Map.Entry.comparingByValue())
+                        .get()
+                        .getKey();
+
+        return ParentDashboardDto.builder()
+                .childEmail(email)
+                .totalQuizzes(totalQuizzes)
+                .topCareer(topCareer)
+                .averageMatchPercentage(averagePercentage)
+                .build();
     }
 }
