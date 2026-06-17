@@ -5,6 +5,7 @@ import com.careerquest.dto.LoginResponse;
 import com.careerquest.dto.RegisterRequest;
 import com.careerquest.entity.User;
 import com.careerquest.repository.UserRepository;
+import com.careerquest.security.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -48,10 +49,15 @@ public class UserServiceImpl implements UserService{
             throw new RuntimeException("Invalid Password");
         }
 
+        String token =
+                JwtUtil.generateToken(
+                        user.getEmail());
+
         return LoginResponse.builder()
                 .message("Login Successful")
                 .email(user.getEmail())
                 .role(user.getRole())
+                .token(token)
                 .build();
     }
 }
